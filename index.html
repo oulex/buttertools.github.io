@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Array Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <section class="top-bar" aria-label="Array controls">
+      <label class="field field-compact">
+        <span>Array length</span>
+        <input id="arrayLength" type="number" min="1" max="20" value="8" aria-label="Choose array length" />
+      </label>
+
+      <div id="lengthFeedback" class="length-feedback" aria-live="polite"></div>
+
+      <div class="panel-actions">
+        <button id="clearAllButton" class="ghost-button" type="button">Clear all</button>
+        <button id="presentButton" class="primary-button" type="button">Present</button>
+      </div>
+    </section>
+
+    <main>
+      <section id="arrayGrid" class="array-grid" aria-label="Media array"></section>
+    </main>
+  </div>
+
+  <div id="presentationOverlay" class="presentation-overlay" hidden>
+    <div class="presentation-stage">
+      <div class="presentation-controls">
+        <button id="shuffleButton" class="ghost-button presentation-button" type="button">Shuffle</button>
+        <button id="exitPresentationButton" class="primary-button presentation-button" type="button">X</button>
+      </div>
+      <section id="presentationGrid" class="array-grid presentation-grid" aria-label="Presentation media array"></section>
+    </div>
+  </div>
+
+  <input id="devicePicker" type="file" accept="image/*,.gif" hidden />
+
+  <dialog id="actionDialog" class="dialog-card">
+    <form method="dialog" class="dialog-content">
+      <div class="dialog-header">
+        <p class="dialog-title">Add media</p>
+        <button class="icon-button" value="cancel" aria-label="Close">X</button>
+      </div>
+
+      <div class="action-list">
+        <button id="fromDeviceButton" type="button" class="action-button">
+          Add image from device
+        </button>
+        <button id="searchButton" type="button" class="action-button">
+          Add image link
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="searchDialog" class="dialog-card search-dialog">
+    <form method="dialog" class="dialog-content">
+      <div class="dialog-header">
+        <div>
+          <p class="dialog-title">Add image link</p>
+          <p class="dialog-subtitle">Paste a direct image or GIF link.</p>
+        </div>
+        <button class="icon-button" value="cancel" aria-label="Close">X</button>
+      </div>
+
+      <label class="field">
+        <span>Image or GIF URL</span>
+        <input id="mediaUrl" type="url" placeholder="Paste a direct image or GIF link" />
+      </label>
+
+      <div id="urlPreview" class="url-preview" hidden>
+        <img id="previewImage" alt="Selected preview" />
+      </div>
+
+      <div class="panel-actions">
+        <button id="applyUrlButton" type="button" class="primary-button">Use this media</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="slotTemplate">
+    <article class="slot-card" tabindex="0">
+      <div class="slot-topline">
+        <span class="slot-index"></span>
+        <button class="slot-remove" type="button" aria-label="Remove media" hidden>Remove</button>
+      </div>
+      <div class="slot-media-wrap">
+        <img class="slot-media" alt="" hidden />
+        <div class="slot-placeholder">
+          <span class="plus">+</span>
+          <p>Add image or GIF</p>
+          <small>Click to browse or add a link</small>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
